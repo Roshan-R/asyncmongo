@@ -1,12 +1,10 @@
 import asyncio
+import ctypes
 from asyncio.streams import StreamReader, StreamWriter
-
-from mongo_types import OP_MSG
-import json
 
 import bson
 
-import ctypes
+from asyncmongo.mongo_types import OP_MSG
 
 
 class AsyncMongoConnection:
@@ -19,7 +17,7 @@ class AsyncMongoConnection:
     ) -> "AsyncMongoConnection":
         self = cls()
         self.reader, self.writer = await asyncio.open_connection(host, port)
-        #print("Connected to mongodb at 127.0.0.1 port 27017")
+        # print("Connected to mongodb at 127.0.0.1 port 27017")
         return self
 
     async def send(self, payload: bytes) -> list | None:
@@ -55,4 +53,3 @@ class AsyncMongoConnection:
             return None
 
         return documents
-

@@ -3,3 +3,5 @@
 ./pymongo-scratch.py
 
 __pycache__/
+.ruff_cache/
+.idea/

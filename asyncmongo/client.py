@@ -1,6 +1,5 @@
-from connection import AsyncMongoConnection
-
-from database import Database
+from asyncmongo.connection import AsyncMongoConnection
+from asyncmongo.database import Database
 
 
 class AsyncMongoClient:
