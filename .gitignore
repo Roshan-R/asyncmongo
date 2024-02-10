@@ -1,0 +1,5 @@
+./playground.py
+./working.py
+./pymongo-scratch.py
+
+__pycache__/
