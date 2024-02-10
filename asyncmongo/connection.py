@@ -53,3 +53,8 @@ class AsyncMongoConnection:
             return None
 
         return documents
+
+    async def command(self, database_name: str, command: dict):
+        command.update({"$db": database_name})
+        payload = OP_MSG.new(command)
+        return await self.send(payload)

@@ -4,9 +4,9 @@ import asyncmongo.client
 
 
 @pytest.mark.asyncio
-async def test_list_all_collection_names():
+async def test_insert_one():
     client = await asyncmongo.client.AsyncMongoClient.create()
     db = client.exampleDB
-    names = await db.list_collection_names()
-    print(names)
-    assert isinstance(names, list)
+    products = db.products
+    resp = await products.insert_one({"x": 100})
+    assert resp[0]["ok"] == 1.0

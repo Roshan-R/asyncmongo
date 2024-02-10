@@ -1,11 +1,18 @@
-from asyncmongo.mongo_types import OP_MSG
+from asyncmongo.collection import Collection
 from asyncmongo.connection import AsyncMongoConnection
 
 
 class Database:
     def __init__(self, client, name: str) -> None:
-        self._command = {"$db": name}
+        self._name = name
         self._client = client
+
+    def __getattr__(self, name: str):
+        return Collection(self, name)
+
+    @property
+    def name(self):
+        return self._name
 
     def _get_connection(self) -> AsyncMongoConnection:
         return self._client.connection
@@ -13,7 +20,6 @@ class Database:
     async def list_collection_names(self) -> list[str]:
         conn = self._get_connection()
         _cmd = {"listCollections": 1, "cursor": {}}
-        _cmd.update(self._command)
-        resp = await conn.send(OP_MSG.new(_cmd))
+        resp = await conn.command(self._name, _cmd)
         names = [item["name"] for item in resp[0]["cursor"]["firstBatch"]]
         return names
