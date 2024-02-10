@@ -47,7 +47,7 @@ class AsyncMongoConnection:
             return None
 
         # Parse the BSON documents
-        documents = bson.decode_all(documents_data)
+        documents = bson.decode(documents_data)
 
         if not documents:
             return None
