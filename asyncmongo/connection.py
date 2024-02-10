@@ -38,13 +38,13 @@ class AsyncMongoConnection:
         documents_size = op_msg.messageLength - op_msg_size
         if documents_size <= 0:
             print("No documents present or invalid message length")
-            return op_msg
+            return None
 
         # Read the documents data
         documents_data = await self.reader.read(documents_size)
         if not documents_data:
             print("No data received for documents")
-            return op_msg
+            return None
 
         # Parse the BSON documents
         documents = bson.decode_all(documents_data)
