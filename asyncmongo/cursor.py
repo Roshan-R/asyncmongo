@@ -1,5 +1,7 @@
 from collections import deque
 
+from asyncmongo.exceptions import InvalidOperation
+
 
 class Cursor:
     def __init__(
@@ -28,7 +30,16 @@ class Cursor:
         if self._id and self._id != 0:
             return {"getMore": self._id, "collection": self._collection._name}
 
-        return {"find": self._collection._name}
+        cmd = {"find": self._collection._name}
+
+        if self._filter:
+            cmd.update({"filter": self._filter})
+        if self._skip:
+            cmd.update({"skip": self._skip})
+        if self._limit:
+            cmd.update({"limit": self._limit})
+
+        return cmd
 
     async def _refresh(self):
         if self._killed:
@@ -60,3 +71,27 @@ class Cursor:
             raise StopAsyncIteration
 
         return self._data.popleft()
+
+    def _check_okay_to_chain(self):
+        if self._id is not None:
+            return InvalidOperation("Cannot set options after executing query")
+
+    def skip(self, skip: int) -> "Cursor":
+        if not isinstance(skip, int):
+            raise TypeError("Skip must be an integer")
+        if skip < 0:
+            raise ValueError("Skip must be >= 0")
+
+        self._check_okay_to_chain()
+
+        self._skip = skip
+        return self
+
+    def limit(self, limit) -> "Cursor":
+        if not isinstance(limit, int):
+            raise TypeError("limit must be an integer")
+
+        self._check_okay_to_chain()
+
+        self._limit = limit
+        return self

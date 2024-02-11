@@ -11,5 +11,5 @@ class Collection:
         conn = self._database._get_connection()
         return await conn.command(command=cmd, database_name=self._database.name)
 
-    async def find(self, filter: dict | None = None) -> Cursor:
-        return Cursor(self, filter=filter)
+    def find(self, filter: dict | None = None, skip: int = 0, limit: int = 0) -> Cursor:
+        return Cursor(self, filter=filter, skip=skip, limit=limit)
