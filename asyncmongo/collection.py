@@ -13,3 +13,14 @@ class Collection:
 
     def find(self, filter: dict | None = None, skip: int = 0, limit: int = 0) -> Cursor:
         return Cursor(self, filter=filter, skip=skip, limit=limit)
+
+    async def find_one(self, filter: dict | None = None, skip: int = 0) -> dict | None:
+        if filter is not None and not isinstance(filter, dict):
+            filter = {"_id": filter}
+
+        res = self.find(filter, skip, limit=1)
+
+        async for each in res:
+            return each
+
+        return None
