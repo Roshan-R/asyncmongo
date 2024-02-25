@@ -1,0 +1,35 @@
+from urllib.parse import urlparse
+
+
+def parse_uri(uri):
+    """
+    :param uri:
+        example would be "mongodb://user:pencil@localhost:27017/admin?retryWrites=true&w=majority"
+    :return: dict of the form
+            {
+                'nodelist': <list of (host, port) tuples>,
+                'username': <username> or None,
+                'password': <password> or None,
+                'database': <database name> or None,
+                'collection': <collection name> or None,
+                'options': <dict of MongoDB URI options>,
+                'fqdn': <fqdn of the MongoDB+SRV URI> or None
+            }
+    """
+    try:
+        parsed = urlparse(uri)
+        user_password, host_port = parsed.netloc.split("@")
+        username, password = user_password.split(":")
+        nodes = host_port.split(":")
+        database = parsed.path if parsed.path != "/" else "admin"
+        resp = {
+            "nodelist": nodes,
+            "username": username,
+            "password": password,
+            "database": database,
+            "collection": None,
+        }
+        return resp
+
+    except Exception:
+        raise ValueError("Invalid URI")

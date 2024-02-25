@@ -21,5 +21,5 @@ class Database:
         conn = self._get_connection()
         _cmd = {"listCollections": 1, "cursor": {}}
         resp = await conn.command(self._name, _cmd)
-        names = [item["name"] for item in resp[0]["cursor"]["firstBatch"]]
+        names = [item["name"] for item in resp["cursor"]["firstBatch"]]
         return names

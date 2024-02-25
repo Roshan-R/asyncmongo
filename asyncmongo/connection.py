@@ -4,21 +4,43 @@ from asyncio.streams import StreamReader, StreamWriter
 
 import bson
 
-from asyncmongo.mongo_types import OP_MSG
+from asyncmongo.auth import MongoCredential, try_authenticate
+from asyncmongo.message import OP_MSG
+from .client_options import ClientOptions
 
 
 class AsyncMongoConnection:
-    reader: StreamReader
-    writer: StreamWriter
+    def __init__(self):
+        self.reader: StreamReader | None = None
+        self.writer: StreamWriter | None = None
+        self.options: ClientOptions | None = None
 
     @classmethod
     async def create(
-        cls, host: str | None = "localhost", port: int | None = 27017
+        cls,
+        host: str | None = "localhost",
+        port: int | None = 27017,
+        options: ClientOptions | None = None,
     ) -> "AsyncMongoConnection":
         self = cls()
+        self.options = options
         self.reader, self.writer = await asyncio.open_connection(host, port)
-        # print("Connected to mongodb at 127.0.0.1 port 27017")
+        if options.username and options.password:
+            await self._authenticate()
+
+        print(f"Connected to mongodb at {host} port {port}")
         return self
+
+    async def _authenticate(self):
+        creds = MongoCredential(
+            mechanism="SCRAM-SHA-256",
+            source=self.options.database,
+            username=self.options.username,
+            password=self.options.password,
+            mechanism_properties="",
+            cache="",
+        )
+        await try_authenticate(self, credentials=creds)
 
     async def send(self, payload: bytes) -> list | None:
         self.writer.write(payload)

@@ -1,5 +1,7 @@
 from asyncmongo.connection import AsyncMongoConnection
 from asyncmongo.database import Database
+from asyncmongo.uri_parser import parse_uri
+from .client_options import ClientOptions
 
 
 class AsyncMongoClient:
@@ -9,9 +11,22 @@ class AsyncMongoClient:
     async def create(
         cls, host: str | None = "localhost", port: int | None = 27017
     ) -> "AsyncMongoClient":
-        # initialise the stuff here
         self = cls()
-        self.connection = await AsyncMongoConnection.create(host, port)
+
+        # case where host is a uri
+        if "://" in host:
+            uri_dict = parse_uri(host)
+            host, port = uri_dict.get("nodelist")
+            options = ClientOptions(
+                username=uri_dict.get("username"),
+                password=uri_dict.get("password"),
+                database=uri_dict.get("database"),
+                options=uri_dict.get("options"),
+            )
+        else:
+            options = ClientOptions()
+
+        self.connection = await AsyncMongoConnection.create(host, port, options)
         return self
 
     def __getattr__(self, name: str) -> Database:
