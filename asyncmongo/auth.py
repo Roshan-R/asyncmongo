@@ -68,12 +68,6 @@ async def try_authenticate(connection, credentials: MongoCredential):
     client_sig = _hmac(stored_key, auth_msg, digestmod).digest()
     client_proof = b"p=" + standard_b64encode(_xor(client_key, client_sig))
     client_final = b",".join((without_proof, client_proof))
-    stored_key = digestmod(client_key).digest()
-    auth_msg = b",".join((first_bare, server_first, without_proof))
-    client_sig = _hmac(stored_key, auth_msg, digestmod).digest()
-    client_proof = b"p=" + standard_b64encode(_xor(client_key, client_sig))
-    client_final = b",".join((without_proof, client_proof))
-
     # server_sig = standard_b64encode(_hmac(server_key, auth_msg, digestmod).digest())
     cmd = {
         "saslContinue": 1,
