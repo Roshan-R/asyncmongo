@@ -69,7 +69,8 @@ Run the test suite using the following command:
 - [X] **`Basic Connection`**: <strike>Set up a basic connection to a MongoDB instance.</strike>
 - [ ] **`Authtication`**: Partial Implementation - Added Support for SCRAM-SHA-256 authtication scheme.
 - [ ] **`Connection Pooling`**: Develop connection pooling for better performance and scalability.
-- [ ] **`Testing and Benchmarks`**: Write unit tests and benchmarks
+- [ ] **`Testing and Benchmarks`**: Write unit tests and benchmarks.
+- [ ] **`Cython`**: Rewite core components in cython, for better performance similar to asyncpg's implementation.
 ---
 
 
