@@ -85,8 +85,3 @@ poetry run pytest
 	- [ ] 	Create benchmarks to measure and optimize performance.
 - [ ] **`Cython`**: Rewrite core components in Cython to improve performance, inspired by asyncpg's implementation.
 ---
-
-
-##  License
-
-This project is protected under the MIT License. 
