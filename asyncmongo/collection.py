@@ -29,3 +29,9 @@ class Collection:
         conn = self._database._get_connection()
         cmd = {"drop": self._name}
         await conn.command(command=cmd, database_name=self._database.name)
+
+    async def update_one(self, filter: dict, doc: dict):
+        doc.pop("_id", None)
+        conn = self._database._get_connection()
+        cmd = {"update": self._name, "updates": [{"q": filter, "u": doc}]}
+        await conn.command(command=cmd, database_name=self._database.name)

@@ -20,5 +20,9 @@ async def main():
     async for x in cursor:
         print(x)
 
+    david = await collection.find_one({"name": "David"})
+    david.update({"age": 30})
+    await collection.update_one({"name": "David"}, david)
+
 
 asyncio.run(main())
