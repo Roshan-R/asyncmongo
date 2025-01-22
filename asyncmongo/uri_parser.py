@@ -16,20 +16,22 @@ def parse_uri(uri):
                 'fqdn': <fqdn of the MongoDB+SRV URI> or None
             }
     """
-    try:
-        parsed = urlparse(uri)
+    parsed = urlparse(uri)
+    username, password = None, None
+
+    if "@" in parsed.netloc:
         user_password, host_port = parsed.netloc.split("@")
         username, password = user_password.split(":")
-        nodes = host_port.split(":")
-        database = parsed.path if parsed.path != "/" else "admin"
-        resp = {
-            "nodelist": nodes,
-            "username": username,
-            "password": password,
-            "database": database,
-            "collection": None,
-        }
-        return resp
+    else:
+        host_port = parsed.netloc
 
-    except Exception:
-        raise ValueError("Invalid URI")
+    nodes = host_port.split(":")
+    database = parsed.path if parsed.path != "/" else "admin"
+    resp = {
+        "nodelist": nodes,
+        "username": username if username else None,
+        "password": password if password else None,
+        "database": database,
+        "collection": None,
+    }
+    return resp
