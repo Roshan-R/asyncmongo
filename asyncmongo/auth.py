@@ -5,9 +5,11 @@ import typing
 from base64 import standard_b64encode, standard_b64decode
 from collections import namedtuple
 
-from pymongo.auth import _xor
-from pymongo.saslprep import saslprep
+from asyncmongo.exceptions import AuthenticationFailedError
 
+from pymongo.auth_shared import _xor
+
+from pymongo.saslprep import saslprep
 
 MongoCredential = namedtuple(
     "MongoCredential",
@@ -32,7 +34,12 @@ async def try_authenticate(connection, credentials: MongoCredential):
         "options": {"skipEmptyExchange": True},
     }
 
-    resp = await connection.command(command=cmd, database_name=credentials.source)
+    try:
+        resp = await connection.command(command=cmd, database_name=credentials.source)
+    except Exception as e:
+        raise AuthenticationFailedError(e)
+
+    print(resp)
     server_first = resp["payload"]
 
     # make as a new function parse
