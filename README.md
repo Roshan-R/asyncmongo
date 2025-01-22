@@ -66,19 +66,22 @@ Run the test suite using the following command:
 ---
 ##  Project Roadmap
 
-Operations that are currenly suported:
-
-1. find
-2. find_one
-3. insert_one
-4. bulk_insert
-5. aggregate
+### Currently Supported Operations
+- `find`
+- `find_one`
+- `insert_one`
+- `bulk_insert`
+- `aggregate`
 
 - [X] **`Basic Connection`**: <strike>Set up a basic connection to a MongoDB instance.</strike>
-- [ ] **`Authtication`**: Partial Implementation - Added Support for SCRAM-SHA-256 authtication scheme.
+- [ ] **`Authentication`**:  
+	- [X] Added support for SCRAM-SHA-256 authentication scheme.  
+	- [ ] Add support for additional authentication mechanisms (e.g LDAP).  
 - [ ] **`Connection Pooling`**: Develop connection pooling for better performance and scalability.
 - [ ] **`Testing and Benchmarks`**: Write unit tests and benchmarks.
-- [ ] **`Cython`**: Rewite core components in cython, for better performance similar to asyncpg's implementation.
+	- [ ] 	Write unit tests for connection handling and CRUD operations.
+	- [ ] 	Create benchmarks to measure and optimize performance.
+- [ ] **`Cython`**: Rewrite core components in Cython to improve performance, inspired by asyncpg's implementation.
 ---
 
 
