@@ -70,8 +70,6 @@ poetry run pytest
 - `find`
 - `find_one`
 - `insert_one`
-- `bulk_insert`
-- `aggregate`
 
 - [X] **`Basic Connection`**: <strike>Set up a basic connection to a MongoDB instance.</strike>
 - [ ] **`Authentication`**:  
