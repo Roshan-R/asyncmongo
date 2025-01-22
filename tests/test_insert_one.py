@@ -9,4 +9,4 @@ async def test_insert_one():
     db = client.exampleDB
     products = db.products
     resp = await products.insert_one({"x": 100})
-    assert resp[0]["ok"] == 1.0
+    assert resp["ok"] == 1.0
