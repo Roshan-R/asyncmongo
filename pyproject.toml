@@ -1,14 +1,17 @@
-[tool.poetry]
+[project]
 name = "asyncmongo"
 version = "0.1.0"
+requires-python = ">=3.12"
 description = "A pure async pymongo alternative"
-authors = ["Roshan R Chandar <roshanr2001@gmail.com>"]
+authors = [{ name = "Roshan R Chandar", email = "roshanr2001@gmail.com" }]
 readme = "README.md"
+dependencies = ["pytest >= 8.0.0", "pytest-asyncio >= 0.23.5", "bson (>=0.5.10,<0.6.0)", "pymongo (>=4.10.1,<5.0.0)"]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-pytest = "^8.0.0"
-pytest-asyncio = "^0.23.5"
+# [tool.poetry.dependencies]
+# python = "^3.11"
+# pytest = "^8.0.0"
+# pytest-asyncio = "^0.23.5"
+# dnspython = "^2.6.1"
 
 
 [build-system]
