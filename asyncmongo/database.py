@@ -7,7 +7,7 @@ class Database:
         self._name = name
         self._client = client
 
-    def __getattr__(self, name: str):
+    def __getattr__(self, name: str) -> Collection:
         return Collection(self, name)
 
     @property

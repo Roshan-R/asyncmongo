@@ -1,7 +1,6 @@
 import ctypes
 import bson
 
-
 """
 struct Section {
         uint8 payloadType;
@@ -49,7 +48,7 @@ class OP_MSG(ctypes.Structure):
 
     @staticmethod
     def new(bson_doc: dict) -> bytes:
-        bson_bytes = bson.encode(bson_doc)
+        bson_bytes = bson.dumps(bson_doc)
 
         msg = OP_MSG()
         msg.opCode = 2013

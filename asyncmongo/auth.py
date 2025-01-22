@@ -1,3 +1,4 @@
+from .utils.saslprep import saslprep
 import hashlib
 import hmac
 import os
@@ -7,9 +8,8 @@ from collections import namedtuple
 
 from asyncmongo.exceptions import AuthenticationFailedError
 
-from pymongo.auth_shared import _xor
+from .utils import _xor
 
-from pymongo.saslprep import saslprep
 
 MongoCredential = namedtuple(
     "MongoCredential",
