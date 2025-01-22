@@ -8,5 +8,4 @@ async def test_list_all_collection_names():
     client = await asyncmongo.client.AsyncMongoClient.create()
     db = client.exampleDB
     names = await db.list_collection_names()
-    print(names)
     assert isinstance(names, list)
