@@ -35,12 +35,12 @@ Install asyncmongo using one of the following methods:
 
 1. Clone the asyncmongo repository:
 ```sh
-❯ git clone https://github.com/Roshan-R/asyncmongo
+git clone https://github.com/Roshan-R/asyncmongo
 ```
 
 2. Navigate to the project directory:
 ```sh
-❯ cd asyncmongo
+cd asyncmongo
 ```
 
 3. Install the project dependencies:
@@ -49,7 +49,7 @@ Install asyncmongo using one of the following methods:
 **Using `poetry`** &nbsp; [<img align="center" src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" />](https://python-poetry.org/)
 
 ```sh
-❯ poetry install
+poetry install
 ```
 
 
@@ -59,7 +59,7 @@ Run the test suite using the following command:
 **Using `poetry`** &nbsp; [<img align="center" src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" />](https://python-poetry.org/)
 
 ```sh
-❯ poetry run pytest
+poetry run pytest
 ```
 
 
