@@ -1,6 +1,5 @@
 import ctypes
-
-from pymongo.mongo_client import bson
+import bson
 
 
 """

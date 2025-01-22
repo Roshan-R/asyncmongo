@@ -1,7 +1,5 @@
 from collections import deque
 
-from asyncmongo.exceptions import InvalidOperation
-
 
 class Cursor:
     def __init__(
@@ -74,7 +72,7 @@ class Cursor:
 
     def _check_okay_to_chain(self):
         if self._id is not None:
-            return InvalidOperation("Cannot set options after executing query")
+            return Exception("Cannot set options after executing query")
 
     def skip(self, skip: int) -> "Cursor":
         if not isinstance(skip, int):
