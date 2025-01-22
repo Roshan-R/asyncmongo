@@ -24,3 +24,8 @@ class Collection:
             return each
 
         return None
+
+    async def drop_collection(self):
+        conn = self._database._get_connection()
+        cmd = {"drop": self._name}
+        await conn.command(command=cmd, database_name=self._database.name)

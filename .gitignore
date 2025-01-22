@@ -8,3 +8,4 @@ __pycache__/
 dbpath/
 dist/
 _build/
+.venv/
