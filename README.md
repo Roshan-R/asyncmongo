@@ -66,6 +66,14 @@ Run the test suite using the following command:
 ---
 ##  Project Roadmap
 
+Operations that are currenly suported:
+
+1. find
+2. find_one
+3. insert_one
+4. bulk_insert
+5. aggregate
+
 - [X] **`Basic Connection`**: <strike>Set up a basic connection to a MongoDB instance.</strike>
 - [ ] **`Authtication`**: Partial Implementation - Added Support for SCRAM-SHA-256 authtication scheme.
 - [ ] **`Connection Pooling`**: Develop connection pooling for better performance and scalability.
