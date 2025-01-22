@@ -71,3 +71,8 @@ Run the test suite using the following command:
 - [ ] **`Connection Pooling`**: Develop connection pooling for better performance and scalability.
 - [ ] **`Testing and Benchmarks`**: Write unit tests and benchmarks
 ---
+
+
+##  License
+
+This project is protected under the MIT License. 
