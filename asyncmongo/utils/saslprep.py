@@ -54,7 +54,9 @@ else:
         stringprep.in_table_c9,
     )
 
-    def saslprep(data: Any, prohibit_unassigned_code_points: Optional[bool] = True) -> Any:
+    def saslprep(
+        data: Any, prohibit_unassigned_code_points: Optional[bool] = True
+    ) -> Any:
         """An implementation of RFC4013 SASLprep.
 
         :param data: The string to SASLprep. Unicode strings
@@ -85,8 +87,11 @@ else:
         in_table_c12 = stringprep.in_table_c12
         in_table_b1 = stringprep.in_table_b1
         data = "".join(
-            ["\u0020" if in_table_c12(
-                elt) else elt for elt in data if not in_table_b1(elt)]
+            [
+                "\u0020" if in_table_c12(elt) else elt
+                for elt in data
+                if not in_table_b1(elt)
+            ]
         )
 
         # RFC3454 section 2, step 2 - Normalize
